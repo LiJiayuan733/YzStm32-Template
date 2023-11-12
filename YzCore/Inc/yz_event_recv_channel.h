@@ -10,6 +10,7 @@
 #include "yz_port.h"
 #include "stdio.h"
 #include "string.h"
+#include "yz_i2c_mpu6050.h"
 
 /**
  * 集中处理Recv中接收到的数据
@@ -23,11 +24,15 @@
 #if YZLED1306
 #include "yz_i2c_led1306.h"
 #endif
+
+#define YZ_EVENT_RECV_AREA_USE yz_recv_get_uart2_area()
+
 #define YZ_EVENT_RECV_DATA_HANDLER 0x00000000
 #define YZ_EVENT_RECV_DATA_1306_IMAGE 0x00000001
 #define YZ_EVENT_RECV_DATA_BLUETOOCH_DEBUG 0x00000002
-#define YZ_EVENT_RECV_DATA_RESET YZ_EVNET_RECV_DATA_VALUE=YZ_EVENT_RECV_DATA_HANDLER;return HAL_OK;
+#define YZ_EVENT_RECV_DATA_TEST 0x00000003
 
+#define YZ_EVENT_RECV_DATA_RESET YZ_EVNET_RECV_DATA_VALUE=YZ_EVENT_RECV_DATA_HANDLER;return HAL_OK;
 #define YZ_EVNET_RECV_DATA_POINTER (uint32_t *)yz_loop_get_pointer(yz_event_recv_get_data_index())
 #define YZ_EVNET_RECV_DATA_VALUE *(YZ_EVNET_RECV_DATA_POINTER)
 ///初始化程序，初始完后自动加载yz_event_recv_handler，并结束自身

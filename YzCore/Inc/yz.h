@@ -12,6 +12,8 @@
 
 ///led1306驱动
 #include "yz_i2c_led1306.h"
+///lcd9648驱动
+#include "yz_spi_lcd9648.h"
 
 ///中断处理以及数据接收
 #include "yz_irq.h"

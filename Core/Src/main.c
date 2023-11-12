@@ -95,7 +95,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  yz_init(&huart1,&huart2,&hi2c1);
+  yz_init(&huart1,&huart2,&hi2c1,&hspi1);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */

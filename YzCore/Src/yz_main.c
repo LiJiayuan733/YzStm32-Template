@@ -5,17 +5,18 @@
 
 PUTCHAR_PROTOTYPE
 {
-    HAL_UART_Transmit(yz_port_getUart1(),(uint8_t *)&ch,1,0x1000);//阻塞方式打印,串口1
+    HAL_UART_Transmit((UART_HandleTypeDef *) YZ_EVENT_RECV_AREA_USE->instance, (uint8_t *)&ch, 1, 0x1000);//阻塞方式打印,串口1
     return ch;
 }
 GETCHAR_PROTOTYPE
 {
-    return yz_get_recv(yz_recv_get_uart1_area());
+    return yz_get_recv(YZ_EVENT_RECV_AREA_USE);
 }
-void yz_init(UART_HandleTypeDef *mu1,UART_HandleTypeDef *mu2,I2C_HandleTypeDef *mi1){
+void yz_init(UART_HandleTypeDef *mu1,UART_HandleTypeDef *mu2,I2C_HandleTypeDef *mi1,SPI_HandleTypeDef *spi1){
     yz_port_setUart1(mu1);
     yz_port_setUart2(mu2);
     yz_port_setI2C1(mi1);
+    yz_port_setSpi1(spi1);
     yz_led_init();
     yz_key_init();
     yz_loop_init();
@@ -25,20 +26,6 @@ void yz_recv_update(struct yz_recv_area *area,uint16_t size){
 //        yz_recv_uart_tran(musart1,size);
 //    }
 }
-//HAL_StatusTypeDef yz_event_recv_update(uint32_t pointer1){
-//    I2C_HandleTypeDef *mi2c1=yz_port_getI2C1();
-//    uint16_t size;
-//    yz_recv_get_size(&size);
-//    if(size>=1024){
-//        for (int i = 0; i < 8; i++) {
-//            yz_1306_page_set(mi2c1,i);
-//            yz_1306_col_low_set(mi2c1,2);
-//            yz_1306_col_high_set(mi2c1,0);
-//            yz_1306_date_write_by_recv(mi2c1,128);
-//        }
-//    }
-//    return HAL_BUSY;
-//}
 HAL_StatusTypeDef yz_event_1306_load(uint32_t pointer1){
     I2C_HandleTypeDef *mi2c1=yz_port_getI2C1();
     yz_1306_close(mi2c1);
@@ -58,6 +45,8 @@ HAL_StatusTypeDef yz_event_1306_load(uint32_t pointer1){
             yz_1306_date_write(mi2c1,j);
         }
     }
+    yz_lcd1306_init();
+    yz_lcd1306_clear();
     return HAL_OK;
 }
 void yz_main(){

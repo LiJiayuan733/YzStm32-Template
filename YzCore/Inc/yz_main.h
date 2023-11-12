@@ -24,6 +24,6 @@
 
 #define BUFFER_SIZE 32
 
-void yz_init(UART_HandleTypeDef *mu1,UART_HandleTypeDef *mu4,I2C_HandleTypeDef *mi1);
+void yz_init(UART_HandleTypeDef *mu1,UART_HandleTypeDef *mu4,I2C_HandleTypeDef *mi1,SPI_HandleTypeDef *spi1);
 void yz_main();
 #endif //REYZ_YZ_MAIN_H

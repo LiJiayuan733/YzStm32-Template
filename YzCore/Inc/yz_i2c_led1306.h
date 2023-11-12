@@ -12,6 +12,7 @@
 
 #define YZ_1306_I2C_TIMEOUT 1000
 
+///此处位写地址0x3c << 1 ,0x3d << 1
 #define YZ_1306_LED_ADDRESS 0x7A
 #define YZ_1306_LED_ADDRESS2 0x78
 

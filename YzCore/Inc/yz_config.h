@@ -16,5 +16,6 @@
 #define YZKEY ON
 #define YZDMA ON
 #define YZLED1306 ON
+#define YZLCD9648 ON
 
 #endif //REYZ_YZ_CONFIG_H
