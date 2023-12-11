@@ -10,6 +10,11 @@ PUTCHAR_PROTOTYPE
 }
 GETCHAR_PROTOTYPE
 {
+    uint16_t size;
+    yz_recv_get_size(YZ_EVENT_RECV_AREA_USE, &size);
+    if(size==0){
+        return EOF;
+    }
     return yz_get_recv(YZ_EVENT_RECV_AREA_USE);
 }
 void yz_init(UART_HandleTypeDef *mu1,UART_HandleTypeDef *mu2,I2C_HandleTypeDef *mi1,SPI_HandleTypeDef *spi1){
@@ -57,5 +62,5 @@ void yz_main(){
     //添加任务/事件
 //    yz_loop_add_event_handle(yz_event_recv_update);
     yz_loop_add_event_handle(yz_event_1306_load);
-    yz_loop_add_event_handle(yz_event_recv_init);
+    //yz_loop_add_event_handle(yz_event_recv_init);
 }
