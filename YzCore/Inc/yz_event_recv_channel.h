@@ -24,6 +24,8 @@
 #if YZLED1306
 #include "yz_i2c_led1306.h"
 #endif
+///EOF对应的char值，用于比较
+#define CHAR_EOF '\377'
 
 #define YZ_EVENT_RECV_AREA_USE yz_recv_get_uart2_area()
 

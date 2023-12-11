@@ -57,12 +57,18 @@ HAL_StatusTypeDef yz_event_recv_test(uint32_t pointer1){
     I2C_HandleTypeDef *ic=yz_port_getI2C1();
     yz_mpu6050_open(ic);
     int16_t z;
-    for(int i=0;i<10;i++){
+    for(int i=0;i<10;i++) {
         HAL_Delay(200);
-        yz_mpu6050_get_reg16_data(ic,YZ_MPU6050_REG_GYROSCOPE_Z_ADDRESS,(uint16_t *)&z);
-        printf("A(Z): %d\n",z);
+        yz_mpu6050_get_reg16_data(ic, YZ_MPU6050_REG_GYROSCOPE_Z_ADDRESS, (uint16_t *) &z);
+        printf("A(Z): %d\n", z);
         fflush(stdout);
     }
+    char c;
+    do{
+        c=getchar();
+    } while (c == '\377');
+    printf("·¢ËÍ³É¹¦%c\n",c);
+    fflush(stdout);
     YZ_EVENT_RECV_DATA_RESET
 }
 HAL_StatusTypeDef yz_event_recv_handler(uint32_t pointer1){

@@ -22,7 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "yz_main.h"
-#include "yz_event_loop.h"
+//#include "yz_event_loop.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +47,6 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
-DMA_HandleTypeDef hdma_usart1_tx;
 
 DMA_HandleTypeDef hdma_memtomem_dma2_channel1;
 /* USER CODE BEGIN PV */
@@ -95,7 +94,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  yz_init(&huart1,&huart2,&hi2c1,&hspi1);
+//  yz_init(&huart1,&huart2,&hi2c1,&hspi1);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -107,14 +106,15 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  yz_main();
+//  yz_main();
+    core_main();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      yz_loop_act();
+//      yz_loop_act();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -342,7 +342,6 @@ static void MX_DMA_Init(void)
 
   /* DMA controller clock enable */
   __HAL_RCC_DMA2_CLK_ENABLE();
-  __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* Configure DMA request hdma_memtomem_dma2_channel1 on DMA2_Channel1 */
   hdma_memtomem_dma2_channel1.Instance = DMA2_Channel1;
@@ -357,11 +356,6 @@ static void MX_DMA_Init(void)
   {
     Error_Handler( );
   }
-
-  /* DMA interrupt init */
-  /* DMA1_Channel4_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel4_IRQn, 1, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 
