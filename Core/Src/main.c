@@ -107,6 +107,9 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 //  yz_main();
+    yz_hal_set_i2c1(&hi2c1);
+    yz_hal_set_spi1(&hspi1);
+    yz_hal_set_uart1(&huart1);
     core_main();
   /* USER CODE END 2 */
 
